@@ -41,3 +41,11 @@ client
     .catch((err) => console.error('MongoDB Connection Error:', err)
 );
 
+app.get('/lessons', async (req, res) => {
+    try {
+      const lessons = await db.collection('Lessons').find().toArray();
+      res.json(lessons);
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to fetch lessons' });
+    }
+});
