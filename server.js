@@ -49,3 +49,20 @@ app.get('/lessons', async (req, res) => {
       res.status(500).json({ error: 'Failed to fetch lessons' });
     }
 });
+
+app.post('/api/orders', async (req, res) => {
+    try {
+        const order= {
+            customerName: req.body.name,
+            contactNumber: req.body.phoneNumber,
+            lessonsIds: req.body.lessonId.map(id => new ObjectId(id)),
+            Spaces: req.body.spaces,
+        };
+
+        const dbResult = await db.collection('Orders').insertOne(order);
+        res.status(201).json({ ...order, _id: dbResult.insertedId });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
