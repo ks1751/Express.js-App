@@ -54,7 +54,7 @@ app.post('/api/orders', async (req, res) => {
     try {
         const order= {
             customerName: req.body.name,
-            contactNumber: req.body.phoneNumber,
+            phoneNumber: req.body.phoneNumber,
             lessonsIds: req.body.lessonId.map(id => new ObjectId(id)),
             Spaces: req.body.spaces,
         };
