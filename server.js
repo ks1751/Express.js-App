@@ -88,4 +88,21 @@ app.put('/api/lessons/:id', async (req, res) => {
     }
 });
 
+app.get('/search', async (req, res) => {
+    try {
+        const query = req.query.q?.toLowerCase();  // Get the search query from the URL parameter
+        
+        if (!query) {
+            return res.status(400).json({ message: "Search query is required." });
+        }
+        const lessons = await db.collection('Lessons').find({ 
+            $or: [
+            {subject: { $regex: query, $options: 'i' }}, {location: { $regex: query, $options: 'i'}} ]
+            }).toArray();
+        res.json(lessons);
+    } catch (error) {
+        console.error('Error during search:', error);
+        res.status(500).json({ message: 'Error fetching lessons from the database' });
+    }
+});
 
