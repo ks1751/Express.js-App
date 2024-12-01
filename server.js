@@ -92,7 +92,7 @@ app.put('/api/lessons/:id', async (req, res) => {
     }
 });
 
-app.get('/api/search', async (req, res) => {
+app.get('/search', async (req, res) => {
     try {
         const query = req.query.q?.toLowerCase();  // Get the search query from the URL parameter
         
