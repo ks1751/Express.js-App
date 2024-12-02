@@ -51,7 +51,7 @@ app.get('/lessons', async (req, res) => {
     }
 });
 
-pp.get('/api/lessons/:id', async (req, res) => {
+app.get('/api/lessons/:id', async (req, res) => {
     try {
         const lessonId = req.params.id;
         const lesson = await db.collection('Lessons').findOne({ _id: new ObjectId(lessonId) });
