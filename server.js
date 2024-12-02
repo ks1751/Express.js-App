@@ -64,6 +64,15 @@ app.get('/api/lessons/:id', async (req, res) => {
     }
 });
 
+app.get('/orders', async (req, res) => {
+    try {
+      const order = await db.collection('Orders').find().toArray();
+      res.json(order);
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to fetch lessons' });
+    }
+});
+
 app.post('/api/orders', async (req, res) => {
     try {
         const order= {
