@@ -51,6 +51,19 @@ app.get('/lessons', async (req, res) => {
     }
 });
 
+pp.get('/api/lessons/:id', async (req, res) => {
+    try {
+        const lessonId = req.params.id;
+        const lesson = await db.collection('Lessons').findOne({ _id: new ObjectId(lessonId) });
+        if (!lesson) {
+            return res.status(404).json({ message: 'Lesson not found' });
+        }
+        res.json(lesson);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
 app.post('/api/orders', async (req, res) => {
     try {
         const order= {
